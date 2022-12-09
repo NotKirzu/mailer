@@ -1,8 +1,15 @@
+import cors from '@fastify/cors';
 import mailer from 'nodemailer';
 import Fastify from 'fastify';
 import 'dotenv/config';
 
 const fastify = Fastify({});
+await fastify.register(cors, {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+});
 
 const transporter = mailer.createTransport({
   host: process.env.SMTP_HOST,
